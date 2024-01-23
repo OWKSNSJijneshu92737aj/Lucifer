@@ -117,9 +117,9 @@ setting.recycles = function()
     for i, trash in ipairs(trashList) do
         if findItem(trash) > amount then
 			sendPacket(2,"action|trash\n|itemID|" .. trash)
-			sleep(4000)
+			sleep(1000)
 			sendPacket(2,"action|dialog_return\ndialog_name|trash_item\nitemID|" .. trash .. "|\ncount|" .. findItem(trash))
-			sleep(4000)
+			sleep(1000)
         end
     end
 end
@@ -254,12 +254,12 @@ setting.webhookinfo = function()
                 username = "Debra's"
                 embeds = @(
                     @{
-                        title = "BOT STATICS"
+                        title = "BOT STATICS [PNB]"
                         color = "]]..math.random(111111,999999)..[["
                         fields = @(
                             @{
                                 name = "TOTAL GEMS & RUNTIME"
-                                value = "]]..""..setting.botgems().." | "..setting.goodtimes(os.difftime(os.time(),params.timechecker))..""..[["
+                                value = "]]..""..setting.botgems().." & "..setting.goodtimes(os.difftime(os.time(),params.timechecker))..""..[["
                                 inline = "false"
                             }
                             @{
@@ -279,7 +279,7 @@ setting.webhookinfo = function()
                             }
                         )
                         footer = @{
-                            text = "PNB Script`n[Lucifer] Caramoy's`nLast update : ]]..(os.date("!%a %b %d, %Y at %I:%M %p", os.time() + 7 * 60 * 60))..[["
+                            text = "[Lucifer] Caramoy's`nLast update : ]]..(os.date("!%a %b %d, %Y at %I:%M %p", os.time() + 7 * 60 * 60))..[["
                         }
                     }
                 )
@@ -301,7 +301,7 @@ setting.storageinfo = function()
                 username = "Debra's"
                 embeds = @(
                     @{
-                        title = "STORAGE STATICS"
+                        title = "STORAGE STATICS [PNB]"
                         color = "]]..math.random(111111,999999)..[["
                         fields = @(
                             @{
@@ -321,7 +321,7 @@ setting.storageinfo = function()
                             }
                         )
                         footer = @{
-                            text = "PNB Script`n[Lucifer] Caramoy's`nLast update : ]]..(os.date("!%a %b %d, %Y at %I:%M %p", os.time() + 7 * 60 * 60))..[["
+                            text = "[Lucifer] Caramoy's`nLast update : ]]..(os.date("!%a %b %d, %Y at %I:%M %p", os.time() + 7 * 60 * 60))..[["
                         }
                     }
                 )
@@ -563,12 +563,12 @@ setting.buying = function()
         if upbackpack then
             while getBot():getInventory().slotcount < 36 do
                 sendPacket(2,"action|buy\nitem|upgrade_backpack")
-                sleep(4000)
+                sleep(1000)
             end
         end
         while getBot().gem_count >= pricepack do
             sendPacket(2,"action|buy\nitem|"..debug)
-            sleep(4000)
+            sleep(1000)
             if findItem(packList[1]) >= 200 then
                 break
             end
