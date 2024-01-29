@@ -1124,30 +1124,22 @@ setting.line = function()
             setting.webhookinfo()
             if not subserver then
                 if not nuked then
-                    if not wrong then
-                        while not getBot():isInTile(posbarisX,posbarisY) do
-                            findPath(posbarisX,posbarisY)
-                            sleep(500)
-                            setting.reconnect(find,"",posbarisX,posbarisY)
-                        end
-                        if changeSkin then
-                            getBot():setSkin(math.random(1, 6))
-                            sleep(1000)
-                        end
-                        setting.wordsrandom()
-                        setting.pnb(find,"")
-                    else
-                        wrong = false
-                        sleep(5000)
-                        setting.botinfo("World pnb : ("..world..") is Wrong door, terminated script @everyone")
-                        print("["..indexbot.."]World pnb : ("..world..") is Wrong door, terminated script")
-                        getBot():stopScript()
+                    while not getBot():isInTile(posbarisX,posbarisY) do
+                        findPath(posbarisX,posbarisY)
+                        sleep(500)
+                        setting.reconnect(find,"",posbarisX,posbarisY)
                     end
+                    if changeSkin then
+                        getBot():setSkin(math.random(1, 6))
+                        sleep(1000)
+                    end
+                    setting.wordsrandom()
+                    setting.pnb(find,"")
                 else
                     nuked = false
                     sleep(5000)
-                    setting.botinfo("World pnb : ("..world..") is NUKED @everyone")
-                    print("["..indexbot.."]World pnb : ("..world..") is NUKED, terminated script")
+                    setting.botinfo("World pnb is NUKED @everyone")
+                    print("["..indexbot.."]World pnb is NUKED, terminated script")
                     getBot():stopScript()
                 end
             else
@@ -1178,30 +1170,22 @@ setting.line = function()
         setting.webhookinfo()
         if not subserver then
             if not nuked then
-                if not wrong then
-                    while not getBot():isInTile(posbarisX,posbarisY) do
-                        findPath(posbarisX,posbarisY)
-                        sleep(500)
-                        setting.reconnect(idxs,"",posbarisX,posbarisY)
-                    end
-                    if changeSkin then
-                        getBot():setSkin(math.random(1, 6))
-                        sleep(1000)
-                    end    
-                    setting.wordsrandom()
-                    setting.pnb(idxs,"")
-                else
-                    wrong = false
-                    sleep(5000)
-                    setting.botinfo("World pnb : ("..world..") is Wrong door, terminated script @everyone")
-                    print("["..indexbot.."]World pnb : ("..world..") is Wrong door, terminated script")
-                    getBot():stopScript()
+                while not getBot():isInTile(posbarisX,posbarisY) do
+                    findPath(posbarisX,posbarisY)
+                    sleep(500)
+                    setting.reconnect(idxs,"",posbarisX,posbarisY)
                 end
+                if changeSkin then
+                    getBot():setSkin(math.random(1, 6))
+                    sleep(1000)
+                end    
+                setting.wordsrandom()
+                setting.pnb(idxs,"")
             else
                 nuked = false
                 sleep(5000)
-                setting.botinfo("World pnb : ("..world..") is NUKED @everyone")
-                print("["..indexbot.."]World pnb : ("..world..") is NUKED, terminated script")
+                setting.botinfo("World pnb is NUKED @everyone")
+                print("["..indexbot.."]World pnb is NUKED, terminated script")
                 getBot():stopScript()
             end
         else
