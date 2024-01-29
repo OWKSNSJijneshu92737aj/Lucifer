@@ -188,7 +188,7 @@ setting.itemFloat = function(id)
 end
 
 setting.getEnetBot = function()
-    strings = ""
+    str = ""
     for i, list in pairs(getBots()) do
         if list.status == BotStatus.online then
             Status = "Online"
@@ -199,49 +199,49 @@ setting.getEnetBot = function()
         else
             Status = "Disconnect"
         end
-        strings = strings.."\n"..Status.."" 
+        str = str.."\n"..Status.."" 
     end
-    return strings
+    return str
 end
 
 setting.botstatus = function()
-    strings = ""
+    str = ""
     for _, bot in pairs(getBots()) do
-        strings = strings.."\n["..bot.level.."]"..string.upper(bot.name).."" 
+        str = str.."\n["..bot.level.."]"..string.upper(bot.name).."" 
     end
-    return strings
+    return str
 end
 
 setting.botworld = function()
-    strings = ""
+    str = ""
     for _, bots in pairs(getBots()) do
-        strings = strings.."\n"..string.upper(bots:getWorld().name).."" 
+        str = str.."\n"..string.upper(bots:getWorld().name).."" 
     end
-    return strings
+    return str
 end
 
 setting.blockstorage = function()
-    strings = ""
+    str = ""
 	for i = 1, #storageblock do
-        strings = strings.."\n"..string.upper(storageblock[i]).." : "..(infoblock[storageblock[i]] or "?")..""
+        str = str.."\n"..string.upper(storageblock[i]).." : "..(infoblock[storageblock[i]] or "?")..""
     end
-    return strings
+    return str
 end
 
 setting.seedstorage = function()
-    strings = ""
+    str = ""
 	for i = 1, #storageseed do
-        strings = strings.."\n"..string.upper(storageseed[i]).." : "..(infoseed[storageseed[i]] or "?")..""
+        str = str.."\n"..string.upper(storageseed[i]).." : "..(infoseed[storageseed[i]] or "?")..""
     end
-    return strings
+    return str
 end
 
 setting.packstorage = function()
-    strings = ""
+    str = ""
 	for i = 1, #storagepack do
-        strings = strings.."\n"..string.upper(storagepack[i]).." : "..(infopack[storagepack[i]] or "?")..""
+        str = str.."\n"..string.upper(storagepack[i]).." : "..(infopack[storagepack[i]] or "?")..""
     end
-    return strings
+    return str
 end
 
 setting.writeFile = function(info,text)
@@ -284,6 +284,7 @@ setting.botinfo = function(content)
 			$payload = @{
 				content = "]]..content..[["
 			}
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Ssl3
 			[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 			Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Post -ContentType "application/json"
 		]]
@@ -362,6 +363,7 @@ setting.webhookinfo = function()
                     }
                 )
             }
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Ssl3
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
             Invoke-RestMethod -Uri $webHookUrl -Body ($payload | ConvertTo-Json -Depth 4) -Method Patch -ContentType 'application/json'
         ]]
@@ -539,15 +541,15 @@ setting.takepickaxe = function()
             else
                 wrong = false
                 sleep(5000)
-                print("["..indexbot.."]Id door world take support items is wrong, check ur id door !!")
-                setting.botinfo("Id door world take support items is wrong, check ur id door !, terminated script @everyone")
+                print("["..indexbot.."]Id door world pickaxe is wrong, check ur id door !!")
+                setting.botinfo("Id door world pickaxe is wrong, check ur id door !, terminated script @everyone")
                 getBot():stopScript()
             end
         else
             nuked = false
             sleep(5000)
-            print("["..indexbot.."]World take support items is nuked, check ur world !!")
-            setting.botinfo("World take support items is nuked, check ur world !, terminated script @everyone")
+            print("["..indexbot.."]World pickaxe is nuked, check ur world !!")
+            setting.botinfo("World pickaxe is nuked, check ur world !, terminated script @everyone")
             getBot():stopScript()
         end
     else
@@ -963,7 +965,6 @@ setting.storingblocks = function()
                     sleep(100)
                     break
                 else
-                    infoblock[world] = "WRONG DOOR"
                     wrong = false
                     sleep(5000)
                     print("["..indexbot.."]("..world..") Id door blocks storage is wrong, check ur id door!")
@@ -981,7 +982,6 @@ setting.storingblocks = function()
                     tileBlock = 0
                 end
             else
-                infoblock[world] = "NUKED"
                 nuked = false
                 sleep(5000)
                 print("["..indexbot.."]("..world..") blocks Storage is NUKED, check ur storage!")
@@ -1007,7 +1007,6 @@ setting.storingblocks = function()
             goto Here
         end
     end
-    infoblock[world] = ""..setting.itemFloat(block).."x"
 end
 
 setting.line = function()
@@ -1320,7 +1319,6 @@ setting.pnb = function(name,id)
                 end
                 setting.line()
             end
-            
             if findItem(seed) >= amountseed then
                 setting.storingseeds()
                 setting.line()
