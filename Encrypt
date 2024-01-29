@@ -711,9 +711,6 @@ setting.storingpacks = function()
         end
     end
     infopack[world] = ""..setting.itemFloat(packList[1]).."x"
-    if clearhistory then
-        setting.joinworld()
-    end
 end
 
 setting.storingseeds = function()
@@ -820,9 +817,6 @@ setting.storingseeds = function()
         end
     end
     infoseed[world] = ""..setting.itemFloat(seed).."x"
-    if clearhistory then
-        setting.joinworld()
-    end
 end
 
 setting.take = function()
