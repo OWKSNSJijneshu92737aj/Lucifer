@@ -834,8 +834,6 @@ customizable.autoLine = function()
     customizable.param = 0
     ::back::
     print("["..pcallBot.."]Set up Line")
-    getBot().collect_range = 3
-    getBot().auto_collect = true
     if not pnbother then
         world = customizable.split(worldpnb[reversed],"[^:]+")[1]
         door = customizable.split(worldpnb[reversed],"[^:]+")[2]
@@ -930,6 +928,8 @@ customizable.autoLine = function()
             customizable.initializeBots()
             if not nuked then
                 if not wrong then
+                    getBot().collect_range = 3
+                    getBot().auto_collect = true
                     while not getBot():isInTile(customizable.pnbX,customizable.pnbY) do
                         getBot():findPath(customizable.pnbX,customizable.pnbY)
                         sleep(500)
@@ -1092,6 +1092,8 @@ end
 
 customizable.pnb = function(name,id)
     ::changed::
+    getBot().collect_range = 3
+    getBot().auto_collect = true
     if pnbtile == 1 then
         while getBot():getInventory():getItemCount(block) >= pnbtile do
             if getTile(getBot().x,getBot().y + customizable.tileY).bg ~= 0 or getTile(getBot().x, getBot().y + customizable.tileY).fg ~= 0 then
