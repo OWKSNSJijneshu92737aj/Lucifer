@@ -743,6 +743,7 @@ customizable.onSeed = function()
 end
 
 customizable.onTake = function()
+    getBot():auto_collect = false
     for i = customizable.variableBlock, #storageblock do
         print("["..pcallBot.."]Take blocks")
 		world = storageblock[i]
