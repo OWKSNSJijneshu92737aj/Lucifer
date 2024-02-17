@@ -743,64 +743,63 @@ customizable.onSeed = function()
 end
 
 customizable.onTake = function()
-    getBot():auto_collect = false
     for i = customizable.variableBlock, #storageblock do
         print("["..pcallBot.."]Take blocks")
 		world = storageblock[i]
         customizable.warp(world,doorstorageblock,delaywarp)
         customizable.initializeBots()
         if not nuked then
-                if not wrong then
-                    if customizable.itemFloat(block) == 0 then
-                        initialize[world] = ""..customizable.itemFloat(block).."x (EMPTY)"
-                        customizable.botStatics("Take blocks storage : ("..world..") has empty, skipped world @everyone")
-                        print("["..pcallBot.."]Take blocks storage : ("..world..") has empty, skipped world")
-                        customizable.variableBlock = customizable.variableBlock + 1
-                        if customizable.variableBlock > #storageblock then
-                            initialize[world] = ""..customizable.itemFloat(block).."x (EMPTY)"
-                            customizable.botStatics("All take blocks storage has empty, Removing bot : ("..getBot().name..") @everyone")
-                            print("["..pcallBot.."]All take blocks storage has empty, Removing bot : ("..getBot().name..")")
-                            customizable.onSeed()
-                            customizable.warp(customizable.guestId(),"",delaywarp)   
-                            if removingbot then
-                                removeBot()
-                                sleep(2000)
-                            end
-                            print("["..pcallBot.."]Blocks empty")
-                            getBot():stopScript()
-                        end
-                    else
-                        for _, object in pairs(getBot():getWorld():getObjects()) do
-                            if object.id == block then
-                                getBot():findPath(math.floor((object.x)/32), math.floor((object.y)/32))
-                                sleep(1000)
-                                getBot():collect(2)
-                                sleep(1000)
-                                customizable.reconnect(world,doorstorageblock,math.floor((object.x)/32), math.floor((object.y)/32))
-                            end
-                            if getBot():getInventory():getItemCount(block) >= pnbtile then
-                                break
-                            end
-                        end
-                        sleep(100)
-                        break
-                    end
-                else
-                    initialize[world] = "WRONG DOOR"
-                    wrong = false
-                    print("["..pcallBot.."]("..world..") Id door Take blocks storage is wrong, check ur id door!")
-                    customizable.botStatics("("..world..") Id door Take blocks storage is wrong, check ur id door! @everyone")
+            if not wrong then
+                if customizable.itemFloat(block) == 0 then
+                    initialize[world] = ""..customizable.itemFloat(block).."x (EMPTY)"
+                    customizable.botStatics("Take blocks storage : ("..world..") has empty, skipped world @everyone")
+                    print("["..pcallBot.."]Take blocks storage : ("..world..") has empty, skipped world")
                     customizable.variableBlock = customizable.variableBlock + 1
                     if customizable.variableBlock > #storageblock then
-                        print("["..pcallBot.."]All Take blocks storage has reached limit")
-                        customizable.botStatics("All Take blocks storage has reached limit! Removing bot : ("..getBot().name..") @everyone")
+                        initialize[world] = ""..customizable.itemFloat(block).."x (EMPTY)"
+                        customizable.botStatics("All take blocks storage has empty, Removing bot : ("..getBot().name..") @everyone")
+                        print("["..pcallBot.."]All take blocks storage has empty, Removing bot : ("..getBot().name..")")
+                        customizable.onSeed()
+                        customizable.warp(customizable.guestId(),"",delaywarp)   
                         if removingbot then
                             removeBot()
                             sleep(2000)
                         end
+                        print("["..pcallBot.."]Blocks empty")
                         getBot():stopScript()
                     end
+                else
+                    for _, object in pairs(getBot():getWorld():getObjects()) do
+                        if object.id == block then
+                            getBot():findPath(math.floor((object.x)/32), math.floor((object.y)/32))
+                            sleep(1000)
+                            getBot():collect(2)
+                            sleep(1000)
+                            customizable.reconnect(world,doorstorageblock,math.floor((object.x)/32), math.floor((object.y)/32))
+                        end
+                        if getBot():getInventory():getItemCount(block) >= pnbtile then
+                            break
+                        end
+                    end
+                    sleep(100)
+                    break
                 end
+            else
+                initialize[world] = "WRONG DOOR"
+                wrong = false
+                print("["..pcallBot.."]("..world..") Id door Take blocks storage is wrong, check ur id door!")
+                customizable.botStatics("("..world..") Id door Take blocks storage is wrong, check ur id door! @everyone")
+                customizable.variableBlock = customizable.variableBlock + 1
+                if customizable.variableBlock > #storageblock then
+                    print("["..pcallBot.."]All Take blocks storage has reached limit")
+                    customizable.botStatics("All Take blocks storage has reached limit! Removing bot : ("..getBot().name..") @everyone")
+                    if removingbot then
+                        removeBot()
+                        sleep(2000)
+                    end
+                    getBot():stopScript()
+                end
+            end
         else
             initialize[world] = "NUKED"
             nuked = false
