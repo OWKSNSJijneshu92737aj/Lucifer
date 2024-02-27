@@ -858,7 +858,11 @@ end
 
 customizable.onTake = function()
     for i = customizable.variableBlock, #storageblock do
-        print("["..pcallBot.."]Take blocks")
+        if autoRetrieve and pcallBot == 1 then
+            print("["..pcallBot.."]Storing blocks")
+        else
+            print("["..pcallBot.."]Take blocks")
+        end
         world = customizable.split(storageblock[i],"[^|]+")[1]
         door = customizable.split(storageblock[i],"[^|]+")[2]
         customizable.warp(world,door)
@@ -897,6 +901,8 @@ customizable.onTake = function()
                                         customizable.reconnect(world,door,getBot().x,getBot().y)
                                     end
                                 end
+                                sleep(100)
+                                break
                             else
                                 for _, object in pairs(getBot():getWorld():getObjects()) do
                                     if object.id == block then
@@ -968,7 +974,11 @@ customizable.onTake = function()
         end
     end
     initialize[world] = ""..customizable.itemFloat(block).."x"
-    customizable.autoLine()
+    if autoRetrieve and pcallBot == 1 then
+        customizable.retrievePos()
+    else
+        customizable.autoLine()
+    end
 end
 
 customizable.pattern = function(name,doorid,coorX,coorY)
@@ -1579,7 +1589,7 @@ customizable.retrievePos = function()
         if not subserver then
             if not nuked then
                 if not wrong then
-                    for i , tile in pairs(getBot():getWorld():getTiles()) do
+                    for _, tile in pairs(getBot():getWorld():getTiles()) do
                         if tile.fg == 6948 then
                             getBot():findPath(tile.x,tile.y-1)
                             sleep(1000)
@@ -1588,7 +1598,7 @@ customizable.retrievePos = function()
                             sleep(1000)
                         end
                     end
-                    for i, tile in pairs(getBot():getWorld():getTiles()) do
+                    for _, tile in pairs(getBot():getWorld():getTiles()) do
                         if tile.fg == 6946 then
                             getBot():findPath(tile.x,tile.y-1)
                             sleep(1000)
@@ -1622,15 +1632,12 @@ customizable.retrievePos = function()
 end
 
 customizable.retrieveDrop = function()
-    world = customizable.split(worldpnb[reversed],"[^|]+")[1]
-    door = customizable.split(worldpnb[reversed],"[^|]+")[2]
     if getBot():getInventory():getItemCount(pointData) > 0 then
         customizable.onSeed()
     end
     if getBot():getInventory():getItemCount(block) > 0 then
         customizable.onTake()
     end
-    customizable.warp(world,door)
 end
 
 customizable.initializeBackup = function()
@@ -2037,10 +2044,11 @@ if Information == "Script PNB made by Caramoy's Syndicate, Link Discord : https:
     while getBot().status ~= BotStatus.online do
         getBot():connect()
         sleep(delayreconnect * 1000)
-    endot():stopScript()
     end
     if withgaut and autoRetrieve then
         if pcallBot == 1 then
+            world = customizable.split(worldpnb[reversed],"[^|]+")[1]
+            door = customizable.split(worldpnb[reversed],"[^|]+")[2]
             customizable.retrievePos()
             while true do
                 getBot():findPath(customizable.tileUtX,customizable.tileUtY)
@@ -2048,15 +2056,14 @@ if Information == "Script PNB made by Caramoy's Syndicate, Link Discord : https:
                 sleep(1000)
                 getBot():retrieve(getBot().x,getBot().y+1,200)
                 sleep(delayretrieve * 1000)
-                customizable.retrieveDrop()
                 customizable.reconnect(world,door,customizable.tileUtX,customizable.tileUtY)
                 getBot():findPath(customizable.tileGaiaX,customizable.tileGaiaY)
                 getBot():setDirection(false)
                 sleep(1000)
                 getBot():retrieve(getBot().x,getBot().y+1,200)
                 sleep(delayretrieve * 1000)
-                customizable.retrieveDrop()
                 customizable.reconnect(world,door,customizable.tileGaiaX,customizable.tileGaiaY)
+                customizable.retrieveDrop()
             end
         end
     end
