@@ -1107,7 +1107,7 @@ customizable.autoLine = function()
             customizable.botline = pnbtile
         end
     else
-        customizable.botline = pnbtile + 1
+        customizable.botline = initPosition + 1
     end
     print("["..pcallBot.."]Set up Line")
     if not pnbother then
@@ -1458,15 +1458,13 @@ customizable.pnb = function(name,id)
                     getBot().auto_collect = false
                     sleep(100)
                     customizable.onSeed()
-                    customizable.onPath(name,id,botX,botY)
-                    goto changed
+                    customizable.autoLine()
                 elseif getBot().gem_count >= mingems and buypack then
                     getBot().auto_collect = false
                     sleep(100)
                     customizable.buying()
                     customizable.onPack()
-                    customizable.onPath(name,id,botX,botY)
-                    goto changed
+                    customizable.autoLine()
                 end
             end
         else
@@ -1532,15 +1530,13 @@ customizable.pnb = function(name,id)
                     getBot().auto_collect = false
                     sleep(100)
                     customizable.onSeed()
-                    customizable.onPath(name,id,botX,botY)
-                    goto changed
+                    customizable.autoLine()
                 elseif getBot().gem_count >= mingems and buypack then
                     getBot().auto_collect = false
                     sleep(100)
                     customizable.buying()
                     customizable.onPack()
-                    customizable.onPath(name,id,botX,botY)
-                    goto changed
+                    customizable.autoLine()
                 end
             end
         end
@@ -1565,15 +1561,13 @@ customizable.pnb = function(name,id)
             getBot().auto_collect = false
             sleep(100)
             customizable.onSeed()
-            customizable.onPath(name,id,botX,botY)
-            goto changed
+            customizable.autoLine()
         elseif getBot().gem_count >= mingems and buypack then
             getBot().auto_collect = false
             sleep(100)
             customizable.buying()
             customizable.onPack()
-            customizable.onPath(name,id,botX,botY)
-            goto changed
+            customizable.autoLine()
         end
     end
     getBot().auto_collect = false
